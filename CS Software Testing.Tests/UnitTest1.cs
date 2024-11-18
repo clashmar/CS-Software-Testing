@@ -174,5 +174,66 @@ namespace CS_Software_Testing.Tests
 
             shoppingCart.CalculatePrice().Should().Be(0);
         }
+
+        [Test]
+        [TestCase(TestName = "Apply discount of 0.5 in class")]
+        public void ApplyDiscountTest_1()
+        {
+            var shoppingCart = new ShoppingCart();
+            double discount = 0.5;
+
+            shoppingCart.ApplyDiscount(discount);
+
+            shoppingCart.Discount.Should().Be(discount);
+        }
+
+        [Test]
+        [TestCase(-0.5, TestName = "Apply invalid discount value of -0.5 and in class")]
+        [TestCase(1.5, TestName = "Apply invalid discount value of 1.5 and in class")]
+        public void ApplyDiscountTest_2(double discount)
+        {
+            var shoppingCart = new ShoppingCart();
+
+            shoppingCart.ApplyDiscount(discount);
+
+            shoppingCart.Discount.Should().Be(0);
+        }
+
+        [Test]
+        [TestCase("Ferrero Rocher", 7.00, 0.5, TestName = "Calculate price of a cart with one item with a discount")]
+        public void CalculatePriceTestWithDiscount_1(string itemName, double price, double discount)
+        {
+            var shoppingCart = new ShoppingCart();
+
+            shoppingCart.AddItem(itemName, price);
+
+            shoppingCart.ApplyDiscount(discount);
+
+            shoppingCart.CalculatePrice().Should().Be(3.5);
+        }
+
+        [Test]
+        [TestCase(0.5, TestName = "Calculate price of a cart with multiple items with a discount")]
+        public void CalculatePriceTestWithDiscount(double discount)
+        {
+            var shoppingCart = new ShoppingCart();
+
+            string itemName1 = "Ferrero Rocher";
+            double price1 = 7.00;
+
+            string itemName2 = "Yorkie";
+            double price2 = 2.00;
+
+            string itemName3 = "Freddo";
+            double price3 = 0.75;
+
+            shoppingCart.ApplyDiscount(discount);
+
+            shoppingCart.AddItem(itemName1, price1);
+            shoppingCart.AddItem(itemName2, price2);
+            shoppingCart.AddItem(itemName3, price3);
+
+            shoppingCart.CalculatePrice().Should().Be(4.88);
+        }
     }          
 }
