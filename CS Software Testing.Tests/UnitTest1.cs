@@ -235,5 +235,40 @@ namespace CS_Software_Testing.Tests
 
             shoppingCart.CalculatePrice().Should().Be(4.88);
         }
+
+        [Test]
+        [TestCase(0.75, TestName = "Calculate price with discount of an empty cart")]
+        public void CalculateDiscountWithEmptyCart_1(double discount)
+        {
+            var shoppingCart = new ShoppingCart();
+
+            shoppingCart.ApplyDiscount(discount);
+
+            shoppingCart.CalculatePrice().Should().Be(0);
+        }
+
+        [Test]
+        [TestCase("Ferrero Rocher", double.MaxValue + 1, 0, TestName = "Calculate price of a cart with one item with a discount")]
+        public void CartTestMaxValueExcess_1(string itemName, double price, double discount)
+        {
+            var shoppingCart = new ShoppingCart();
+
+            shoppingCart.AddItem(itemName, price);
+
+            shoppingCart.ApplyDiscount(discount);
+
+            Assert.Throws<InvalidOperationException>(()=> shoppingCart.CalculatePrice());
+        }
+
+        [Test]
+        [TestCase(TestName = "Test if an item with a negative price is added")]
+        public void AddNegativeItem_1()
+        {
+            var shoppingCart = new ShoppingCart();
+            string itemName = "FreeChocolate";
+            double price = -1.00;
+
+            Assert.Throws<ArgumentException>(() => shoppingCart.AddItem(itemName, price));
+        }
     }          
 }

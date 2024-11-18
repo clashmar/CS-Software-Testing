@@ -14,6 +14,8 @@ namespace CS_Software_Testing
 
         public void AddItem(string itemName, double price)
         {
+            if (price < 0) throw new ArgumentException();
+
             items[itemName] = price;
         }
 
@@ -26,10 +28,13 @@ namespace CS_Software_Testing
                 price = price + item.Value;
             }
 
+            if (price >= double.MaxValue) throw new InvalidOperationException();
+
             if (Discount == 0)
             {
                 return Math.Round(price, 2);
-            } else
+            } 
+            else
             {
                 return Math.Round(price * Discount, 2);
             }
