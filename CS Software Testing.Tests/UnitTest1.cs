@@ -41,5 +41,37 @@ namespace CS_Software_Testing.Tests
                 Compass.Rotate(Enums.Point.West, Enums.Direction.Left).Should().Be(Enums.Point.South);
             });
         }
+        [Test]
+        [TestCase(TestName = "Returns reversed string when passed any string")]
+        public void ReverseStringTest()
+        {
+            Assert.Multiple(() =>
+            {
+                StringManipulator.ReverseString("test").Should().Be("tset");
+                StringManipulator.ReverseString("").Should().Be("");
+                StringManipulator.ReverseString("Look over there!!").Should().Be("!!ereht revo kooL");
+            });
+        }
+
+        [Test]
+        [TestCase(TestName = "Return true when passed racecar")]
+        public void IsPalindromeTest_1()
+        {
+
+            StringManipulator.IsPalindrome("racecar").Should().Be(true);
+        }
+
+        [Test]
+        [TestCase(TestName = "Return true when passed different casing and spaces")]
+        public void IsPalindromeTest_2()
+        {
+
+            Assert.Multiple(() =>
+            {
+                StringManipulator.IsPalindrome("Racecar").Should().Be(true);
+                StringManipulator.IsPalindrome("Taco cat").Should().Be(true);
+                StringManipulator.IsPalindrome("A man a plan a canal Panama").Should().Be(true);
+            });
+        }
     }
 }
