@@ -111,6 +111,68 @@ namespace CS_Software_Testing.Tests
 
             analyser.CalculateLetterFrequency("This is a fairly boring thing.")['z'].Should().Be(0);
         }
-    }
-            
+
+        [Test]
+        [TestCase(TestName = "Test if an item is added to the shopping cart")]
+        public void AddItemTest_1()
+        {
+            var shoppingCart = new ShoppingCart();
+            string itemName = "Ferrero Rocher";
+            double price = 7.00;
+
+
+            shoppingCart.AddItem(itemName, price);
+
+            Assert.Multiple(() =>
+            {
+                shoppingCart.items.ContainsKey(itemName).Should().BeTrue();
+                shoppingCart.items.ContainsValue(price).Should().BeTrue();
+            });
+        }
+
+        [Test]
+        [TestCase(TestName = "Calculate price of a cart with one item")]
+        public void CalculatePriceTest_1()
+        {
+            var shoppingCart = new ShoppingCart();
+
+            string itemName = "Ferrero Rocher";
+            double price = 7.00;
+
+            shoppingCart.AddItem(itemName, price);
+
+            shoppingCart.CalculatePrice().Should().Be(price);
+        }
+
+        [Test]
+        [TestCase(TestName = "Calculate price of a cart with multiple items")]
+        public void CalculatePriceTest_2()
+        {
+            var shoppingCart = new ShoppingCart();
+
+            string itemName1 = "Ferrero Rocher";
+            double price1 = 7.00;
+
+            string itemName2 = "Yorkie";
+            double price2 = 2.00;
+
+            string itemName3 = "Freddo";
+            double price3 = 0.75;
+
+            shoppingCart.AddItem(itemName1, price1);
+            shoppingCart.AddItem(itemName2, price2);
+            shoppingCart.AddItem(itemName3, price3);
+
+            shoppingCart.CalculatePrice().Should().Be(9.75);
+        }
+
+        [Test]
+        [TestCase(TestName = "Calculate price of a cart with no items")]
+        public void CalculatePriceTest_3()
+        {
+            var shoppingCart = new ShoppingCart();
+
+            shoppingCart.CalculatePrice().Should().Be(0);
+        }
+    }          
 }
