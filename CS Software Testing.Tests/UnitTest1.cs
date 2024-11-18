@@ -108,7 +108,8 @@ namespace CS_Software_Testing.Tests
         public void CalculateLetterFrequencyTest_2()
         {
             var analyser = new WordAnalyser();
-            analyser.CalculateLetterFrequency("This is a fairly boring thing.").ContainsValue('z').Should().Be(false);
+
+            analyser.CalculateLetterFrequency("This is a fairly boring thing.")['z'].Should().Be(0);
         }
     }
             

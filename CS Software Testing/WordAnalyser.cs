@@ -35,10 +35,19 @@ namespace CS_Software_Testing
         {
             // TODO: Implement the logic to calculate the frequency of each letter in the given text
             Dictionary<char, int> dictionary = new Dictionary<char, int>();
+
+            for(char letter = 'a';  letter <= 'z'; letter++)
+            {
+                dictionary.Add(letter, 0);
+            }
+
+
             foreach (char c in text)
             {
-                if (!dictionary.ContainsKey(c)) dictionary.Add(c, 1);
-                else dictionary[c]++;
+                if(dictionary.ContainsKey(Char.ToLower(c)))
+                {
+                    dictionary[Char.ToLower(c)]++;
+                }
             }
             return dictionary;
         }
