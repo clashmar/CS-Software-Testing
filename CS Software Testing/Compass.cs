@@ -17,7 +17,32 @@ namespace CS_Software_Testing
 
         public static Enums.Point Rotate(Enums.Point point, Enums.Direction direction)
         {
-            return Enums.Point.South;
+            if (direction == Enums.Direction.Right)
+            {
+                switch (point)
+                {
+                    case Enums.Point.North:
+                        return Enums.Point.East;
+                    case Enums.Point.East:
+                        return Enums.Point.South;
+                    case Enums.Point.South:
+                        return Enums.Point.West;
+                    default:
+                        return Enums.Point.North;
+                }
+            } else {
+                switch (point)
+                {
+                    case Enums.Point.North:
+                        return Enums.Point.West;
+                    case Enums.Point.West:
+                        return Enums.Point.South;
+                    case Enums.Point.South:
+                        return Enums.Point.East;
+                    default:
+                        return Enums.Point.North;
+                }
+            }
         }  
     }
 }
