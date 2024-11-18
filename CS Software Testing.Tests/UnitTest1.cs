@@ -73,5 +73,43 @@ namespace CS_Software_Testing.Tests
                 StringManipulator.IsPalindrome("A man a plan a canal Panama").Should().Be(true);
             });
         }
+
+
+        [Test]
+        [TestCase(TestName = "Return single word when only one word in the string is longest")]
+        public void FindLongestWordsTest_1()
+        {
+            var analyser = new WordAnalyser();
+            string input = "This is some example test data - come up with your own!";
+            List<string> longestWords = new List<string>{ "example" };
+            Assert.That(analyser.FindLongestWords(input), Is.EquivalentTo(longestWords));
+        }
+
+        [Test]
+        [TestCase(TestName = "Return multiple words when multiple words in the string are longest")]
+        public void FindLongestWordsTest_2()
+        {
+            var analyser = new WordAnalyser();
+            string input = "This is some example testing datasss - comeeee up with yourrrr own!";
+            List<string> longestWords = new List<string> { "example", "testing", "datasss", "comeeee", "yourrrr" };
+            Assert.That(analyser.FindLongestWords(input), Is.EquivalentTo(longestWords));
+        }
+
+        [Test]
+        [TestCase(TestName = "Returns the number 3 when passed the character 'l'")]
+        public void CalculateLetterFrequencyTest_1()
+        {
+            var analyser = new WordAnalyser();
+            analyser.CalculateLetterFrequency("Hello world")['l'].Should().Be(3);
+        }
+
+        [Test]
+        [TestCase(TestName = "Returns the number 0 when passed the character 'z'")]
+        public void CalculateLetterFrequencyTest_2()
+        {
+            var analyser = new WordAnalyser();
+            analyser.CalculateLetterFrequency("This is a fairly boring thing.").ContainsValue('z').Should().Be(false);
+        }
     }
+            
 }
